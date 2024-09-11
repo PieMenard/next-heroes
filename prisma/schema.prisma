@@ -16,7 +16,7 @@ datasource db {
 model Power {
   id        Int     @id @default(autoincrement())
   name      String
-  dangeorus Boolean
+  dangerous Boolean
   heroes    Hero[]  @relation("HeroPowers")
 }
 

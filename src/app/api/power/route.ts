@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const power = await prisma.power.create({
       data: {
         name: data.name,
-        dangeorus: data.dangeorus,
+        dangerous: data.dangerous,
         id: data.id,
       },
     });
