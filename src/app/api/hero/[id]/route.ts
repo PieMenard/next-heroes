@@ -79,3 +79,28 @@ export async function PUT(req: NextRequest) {
     );
   }
 }
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const id = parseInt(req.url.split('/hero/')[1]);
+    const hero = await prisma.hero.findUnique({
+      where: { id },
+      include: { powers: true },
+    });
+
+    if (!hero)
+      return NextResponse.json(
+        { success: false, message: 'hero not found' },
+        { status: 404 }
+      );
+
+    const deleteHero = await prisma.hero.delete({ where: { id: hero.id } });
+
+    return NextResponse.json({
+      success: true,
+      message: `${hero.name} deleted`,
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}
