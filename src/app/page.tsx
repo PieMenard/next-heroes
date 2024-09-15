@@ -2,6 +2,8 @@
 
 import { Hero } from '@prisma/client';
 import { useEffect, useState } from 'react';
+import SearchBox from './components/SearchBox';
+import HeroCard from './components/HeroCard';
 
 export default function Home() {
   const [heroes, setHeroes] = useState<Hero[]>([]);
@@ -15,16 +17,12 @@ export default function Home() {
     getHeroes();
   }, []);
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <h1 className="font-semibold text-xl text-center my-4">Heroes</h1>
+      <SearchBox />
       <ul className="flex flex-col items-center">
         {heroes.map((hero) => (
-          <li
-            key={hero.id}
-            className="mt-2 p-4 flex flex-col border-2 rounded-md"
-          >
-            {hero.id}. {hero.name}
-          </li>
+          <HeroCard hero={hero} />
         ))}
       </ul>
     </div>
